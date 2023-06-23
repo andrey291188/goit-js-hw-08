@@ -19,17 +19,19 @@ function onFormSubmit (evt) {
 function createKey (evt) {
     dataForm[evt.target.name] = evt.target.value; 
     localStorage.setItem(STORY_KEY, JSON.stringify(dataForm));
-
 }
 
-function populateTextArea () {
-
+function textArea (messagSave) {
     if (messagSave) {
-        inputForm.email.value = messagSave.email;
-        inputForm.message.value = messagSave.message;
+        inputForm.email.value = messagSave.email || "";
+        inputForm.message.value = messagSave.message || "";
     }
 }
-populateTextArea(messagSave)
+
+textArea(messagSave)
+
+
+
 
 
 
