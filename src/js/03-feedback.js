@@ -5,31 +5,42 @@ const inputSubmit = document.querySelector(".feedback-form");
 
 const STORY_KEY = "feedback-form-state";
 const dataForm = {};
-const messagSave = JSON.parse(localStorage.getItem(STORY_KEY));
+const messageSave = JSON.parse(localStorage.getItem(STORY_KEY));
 
 inputForm.addEventListener("input", throttle(createKey, 500));
 inputSubmit.addEventListener("submit", onFormSubmit);
 
 function onFormSubmit (evt) {
     evt.preventDefault();
+    console.log(messageSave)
     evt.target.reset();
     localStorage.removeItem(STORY_KEY)
 }
 
 function createKey (evt) {
-    dataForm[evt.target.name] = evt.target.value; 
-    localStorage.setItem(STORY_KEY, JSON.stringify(dataForm));
+ 
+    if (messageSave){
+        dataForm.email = messageSave.email;
+        dataForm.message = messageSave.message
+    } 
+        dataForm[evt.target.name] = evt.target.value; 
+        textAreaInput()
+    
 }
 
-function textArea (messagSave) {
-    if (messagSave) {
-        inputForm.email.value = messagSave.email || "";
-        inputForm.message.value = messagSave.message || "";
+function textAreaInput () { 
+     localStorage.setItem(STORY_KEY, JSON.stringify(dataForm)); 
+}
+
+function textArea (messageSave) {
+   
+    if (messageSave) {
+        inputForm.email.value = messageSave.email ?? "";
+        inputForm.message.value = messageSave.message ?? "";  
     }
 }
 
-textArea(messagSave)
-
+ textArea(messageSave)
 
 
 
